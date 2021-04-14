@@ -7,7 +7,7 @@ from time import time
 
 import numpy as np
 from PIL import Image
-from utils import add_random_noise_to_image, generate_random_cnh
+from process import add_random_noise_to_image, generate_random_cnh
 
 
 def tot_time(start_time, end_time):
@@ -54,7 +54,7 @@ def get_input_args():
     return parser.parse_args()
 
 
-def run(size: int, noise: bool):
+def run(size: int, noise: bool) -> None:
     main_path = Path(getcwd())
     dataset_path = main_path / 'cnh_dataset'
     print(f'Generating {size} images in {dataset_path}')

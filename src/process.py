@@ -163,6 +163,12 @@ def extract_all_informations_from_rois_preds(data: dict, text_preds: list, ratio
         extract_name_cnh(data, text, words, ratio)
 
 
+def show(image: np.array, desc='Imagem'):
+    cv2.imshow(desc, image)
+    cv2.waitKey(0)
+    cv2.destroyAllWindows()
+
+
 def read_all_rois(all_rois: list, mean_rect_angle: np.float64,
                   std_rect_angle: np.float64) -> dict:
     data = get_default_data()
@@ -171,6 +177,10 @@ def read_all_rois(all_rois: list, mean_rect_angle: np.float64,
         gray_roi = roi.copy()
         thresh_roi, _, gray_roi = clean_image(gray_roi)
         roi_preds = get_preds([origin_roi, gray_roi])
+        # show(roi)
+        # print(roi_preds[0])
+        # show(gray_roi)
+        # print(roi_preds[1])
         extract_all_informations_from_rois_preds(data, roi_preds, roi_ratio)
     return data
 

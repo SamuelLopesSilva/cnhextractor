@@ -4,7 +4,7 @@ import re
 from src.utils import valid_date_string
 
 
-def extract_cnh_number(data: dict, text: str, ratio: float):
+def extract_cnh_number(data: dict, text: str, ratio: float) -> None:
     if (5.1 <= ratio <= 7.1 and data['numero'] is None):
         numbers = re.findall(r"(\d{11})", text)
         for number in numbers:
@@ -12,7 +12,7 @@ def extract_cnh_number(data: dict, text: str, ratio: float):
                 data['numero'] = number
 
 
-def extract_cpf_cnh(data: dict, text: str, text_size: str, ratio: float):
+def extract_cpf_cnh(data: dict, text: str, text_size: str, ratio: float) -> None:
     cpf_pattern = '[0-9]{3}\.[0-9]{3}\.[0-9]{3}\-[0-9]{2}'
     if (3.3 <= ratio <= 5) and (data["cpf"] is None) and (text_size > 12):
         text = text.replace(',', '.')
@@ -21,7 +21,7 @@ def extract_cpf_cnh(data: dict, text: str, text_size: str, ratio: float):
             data["cpf"] = cpf_search[0]
 
 
-def extract_rg_cnh(data: dict, text: str, words: int, ratio: float):
+def extract_rg_cnh(data: dict, text: str, words: int, ratio: float) -> None:
     if (7.2 <= ratio <= 10):
         if (data["rg"] is None):
             if (words >= 1):
@@ -36,7 +36,7 @@ def extract_rg_cnh(data: dict, text: str, words: int, ratio: float):
                         data["rg"] = "".join(d.split())
 
 
-def extract_dates_cnh(data: dict, text: str, text_size: int, ratio: float):
+def extract_dates_cnh(data: dict, text: str, text_size: int, ratio: float) -> None:
     if (3.3 <= ratio <= 5):
         if (text_size == 10 and text.find("/")):
             dateObj = valid_date_string(text.strip())
@@ -49,6 +49,6 @@ def extract_dates_cnh(data: dict, text: str, text_size: int, ratio: float):
                     data["validade"] = "".join(text.split())
 
 
-def extract_name_cnh(data: dict, text: str, words: int, ratio: float):
+def extract_name_cnh(data: dict, text: str, words: int, ratio: float) -> None:
     if (12.5 <= ratio <= 17) and (data["nome"] is None) and (words < 7 and words > 1):
         data["nome"] = text
