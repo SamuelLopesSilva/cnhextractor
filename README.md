@@ -42,7 +42,7 @@ python cnhextractor.py --image PATH_TO_IMAGE
 ## Planejamento
 Assim que recebi o projeto, fui para a internet pesquisar abordagens que eu poderia utilizar, bem como quais dados tinham à minha disposição. 
 
-Comecei a anotar as ideias em uma folha de papel e também desenhar qual seria mais ou menos o fluxo que eu iria adotar. Descartei algumas alternativas como usar EAST para a detecção de texto ou usar muitas variantes de imagens no dataset por motivos de tempo. Optei por tentar encontrar ROIs na imagem e passar o Tesseract em cada uma delas. 
+Comecei a anotar as ideias em uma folha de papel e também desenhar qual seria mais ou menos o fluxo que eu iria adotar. Descartei algumas alternativas como usar EAST para a detecção de texto ou usar muitas variantes de imagens no dataset por motivo de tempo. Optei por tentar encontrar ROIs na imagem e passar o Tesseract em cada uma delas. 
 
 Após isso, criei um quadro no Trello para começar a organizar as minhas tasks e sub-tasks.
 
