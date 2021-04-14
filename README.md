@@ -1,4 +1,4 @@
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1HLMKyHIk-Z7jpr0slUPqCMbKwVAl-PSe?usp=sharing)
+[![Abrir no Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1HLMKyHIk-Z7jpr0slUPqCMbKwVAl-PSe?usp=sharing)
 # Extrator de informações de CNH - Teste Docket - Machine Learning
 
 ## Ambiente
