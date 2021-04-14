@@ -5,10 +5,8 @@ from os import getcwd
 from pathlib import Path
 from time import time
 
-import cv2
 import numpy as np
 from PIL import Image
-
 from utils import add_random_noise_to_image, generate_random_cnh
 
 

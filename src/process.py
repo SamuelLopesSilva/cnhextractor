@@ -1,12 +1,3 @@
-import argparse
-import base64
-import datetime
-import json
-import os
-import random as rng
-import re
-import sys
-
 import cv2
 import imutils
 import numpy as np

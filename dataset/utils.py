@@ -1,8 +1,8 @@
 import random
 
 import numpy as np
-from fordev.generators import cnh, people, uf
 from PIL import Image, ImageDraw, ImageFont
+from fordev.generators import cnh, people, uf
 from skimage.util import random_noise
 
 
