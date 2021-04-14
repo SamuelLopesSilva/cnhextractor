@@ -64,20 +64,20 @@ class FakeCNH:
                 self.img = write_on_image(self.img, write)
 
 
-def write_on_image(img, w_config: Write):
-    draw = ImageDraw.Draw(img)
+def write_on_image(image: np.array, w_config: Write) -> np.array:
+    draw = ImageDraw.Draw(image)
     font = ImageFont.truetype(FONT, 17)
     draw.text(w_config.cords, w_config.value, w_config.color, font=font)
-    return img
+    return image
 
 
-def add_random_noise_to_image(image):
+def add_random_noise_to_image(image: np.array) -> np.array:
     noise = random_noise(
         image, mode='s&p', amount=random.uniform(0.0051, 0.11))
     return np.array(255 * noise, dtype=np.uint8)
 
 
-def generate_random_cnh(**kwargs):
+def generate_random_cnh(**kwargs) -> np.array:
     fake = Faker()
     ppl = people(uf_code=uf()[0])
     cnh_number = cnh()

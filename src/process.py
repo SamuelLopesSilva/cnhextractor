@@ -20,7 +20,7 @@ def get_rois_from_cords(images: list, cords: tuple) -> list:
     return rois
 
 
-def get_preds(items: list):
+def get_preds(items: list) -> list:
     return [get_image_text(item) for item in items]
 
 
