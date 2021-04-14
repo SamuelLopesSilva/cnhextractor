@@ -33,4 +33,5 @@ def valid_date_string(date_text):
     try:
         return datetime.datetime.strptime(date_text, '%d/%m/%Y')
     except ValueError:
-        print("Unable to parse this string to date: ", date_text)
+        #print(f'Falha pra parsear {date_text}')
+        return

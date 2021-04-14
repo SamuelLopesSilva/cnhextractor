@@ -8,7 +8,7 @@ from time import time
 import numpy as np
 from PIL import Image
 
-from src.process import extract_information_from_cnh
+from src.process import extract_information_from_cnh, show
 
 
 def tot_time(start_time, end_time):
@@ -46,7 +46,8 @@ def get_input_args():
 def run(image_path: Path) -> dict:
     print(f'Extracting information from {image_path}\n')
     image = np.array(Image.open(image_path))
-    return extract_information_from_cnh(image)
+    data = extract_information_from_cnh(image)
+    return data
 
 
 def print_result(data: dict, repl_none: str = 'Não encontrado'):

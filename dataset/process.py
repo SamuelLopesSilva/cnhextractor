@@ -82,9 +82,9 @@ def generate_random_cnh(**kwargs) -> np.array:
     ppl = people(uf_code=uf()[0])
     cnh_number = cnh()
     rnd_validity = fake.date_between(
-        start_date='today', end_date='+5y').strftime("%m/%d/%Y")
+        start_date='today', end_date='+5y').strftime("%d/%m/%Y")
     first_cnh = fake.date_between(
-        start_date='-30y', end_date='-5y').strftime("%m/%d/%Y")
+        start_date='-30y', end_date='-5y').strftime("%d/%m/%Y")
     rg = ppl['rg'].replace('.', '').replace('-', '')
     org_initials = ''.join(random.choice(string.ascii_uppercase)
                            for _ in range(3))

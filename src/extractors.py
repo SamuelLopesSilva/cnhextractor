@@ -14,8 +14,8 @@ def extract_cnh_number(data: dict, text: str, ratio: float) -> None:
 
 def extract_cpf_cnh(data: dict, text: str, text_size: str, ratio: float) -> None:
     cpf_pattern = '[0-9]{3}\.[0-9]{3}\.[0-9]{3}\-[0-9]{2}'
-    if (3.3 <= ratio <= 5) and (data["cpf"] is None) and (text_size > 12):
-        text = text.replace(',', '.')
+    if (3.3 <= ratio <= 5.3) and (data["cpf"] is None) and (text_size > 12):
+        text = text.replace(',', '.').replace(' ', '')
         cpf_search = re.findall(cpf_pattern, text)
         if cpf_search:
             data["cpf"] = cpf_search[0]
@@ -37,16 +37,17 @@ def extract_rg_cnh(data: dict, text: str, words: int, ratio: float) -> None:
 
 
 def extract_dates_cnh(data: dict, text: str, text_size: int, ratio: float) -> None:
-    if (3.3 <= ratio <= 5):
-        if (text_size == 10 and text.find("/")):
-            dateObj = valid_date_string(text.strip())
-            if (isinstance(dateObj, datetime.datetime)):
-                now = datetime.datetime.now()
-                legalAge = datetime.datetime.now() - datetime.timedelta(days=365*18)
-                if (data["dt_nasc"] is None and dateObj < legalAge):
-                    data["dt_nasc"] = "".join(text.split())
-                if (data["validade"] is None and dateObj > now):
-                    data["validade"] = "".join(text.split())
+    if (3.3 <= ratio <= 5) and (text_size == 10 and text.find("/")):
+        date = valid_date_string(text.strip())
+        if not date:
+            return
+        if (isinstance(date, datetime.datetime)):
+            now = datetime.datetime.now()
+            legalAge = datetime.datetime.now() - datetime.timedelta(days=365*18)
+            if (data["dt_nasc"] is None and date < legalAge):
+                data["dt_nasc"] = "".join(text.split())
+            if (data["validade"] is None and date > now):
+                data["validade"] = "".join(text.split())
 
 
 def extract_name_cnh(data: dict, text: str, words: int, ratio: float) -> None:

@@ -151,6 +151,7 @@ def extract_all_informations_from_rois_preds(data: dict, text_preds: list, ratio
 
     for text in text_preds:
         text = clean_text(text)
+
         words = len(re.findall(r"\w+", text))
         text_size = len(text.strip())
         if len(text.strip()) == 0:
@@ -170,17 +171,15 @@ def show(image: np.array, desc='Imagem'):
 
 
 def read_all_rois(all_rois: list, mean_rect_angle: np.float64,
-                  std_rect_angle: np.float64) -> dict:
+                  std_rect_angle: np.float64, crop_roi: tuple = (5, 0)) -> dict:
     data = get_default_data()
-    for roi, roi_area, roi_ratio, roi_angle in all_rois:
+    for idx, (roi, roi_area, roi_ratio, roi_angle) in enumerate(all_rois):
+        (height, width,) = roi.shape[:2]
+        roi = roi[crop_roi[0]:height, crop_roi[1]:width]
         origin_roi = roi.copy()
         gray_roi = roi.copy()
         thresh_roi, _, gray_roi = clean_image(gray_roi)
         roi_preds = get_preds([origin_roi, gray_roi])
-        # show(roi)
-        # print(roi_preds[0])
-        # show(gray_roi)
-        # print(roi_preds[1])
         extract_all_informations_from_rois_preds(data, roi_preds, roi_ratio)
     return data
 
