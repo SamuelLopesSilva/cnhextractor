@@ -9,6 +9,11 @@ from src.extractors import *
 from src.utils import *
 
 
+def show(image: np.array, desc='Imagem'):
+    cv2.imshow(desc, image)
+    cv2.waitKey(0)
+    cv2.destroyAllWindows()
+
 def get_image_text(image: np.array) -> str:
     image = Image.fromarray(image)
     return pytesseract.image_to_string(image)
@@ -31,6 +36,10 @@ def apply_morphological_operations(image: np.array, ks: tuple = (3, 3)) -> tuple
     return kernel, top_hat, black_hat
 
 
+def get_gray_image(image: np.array) -> np.array:
+    return cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+
+
 def add_and_subtract(image: np.array, top_hat: np.array, black_hat: np.array) -> tuple:
     add = cv2.add(image, top_hat)
     subtract = cv2.subtract(add, black_hat)
@@ -46,7 +55,7 @@ def get_thresh(subtract: np.array, offset: int = 35) -> np.array:
 
 
 def clean_image(image: np.array) -> tuple:
-    gray_image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+    gray_image = get_gray_image(image)
     kernel, top_hat, black_hat = apply_morphological_operations(
         gray_image)
     add, subtract = add_and_subtract(gray_image, top_hat, black_hat)
@@ -164,12 +173,6 @@ def extract_all_informations_from_rois_preds(data: dict, text_preds: list, ratio
         extract_name_cnh(data, text, words, ratio)
 
 
-def show(image: np.array, desc='Imagem'):
-    cv2.imshow(desc, image)
-    cv2.waitKey(0)
-    cv2.destroyAllWindows()
-
-
 def read_all_rois(all_rois: list, mean_rect_angle: np.float64,
                   std_rect_angle: np.float64, crop_roi: tuple = (5, 0)) -> dict:
     data = get_default_data()
@@ -179,7 +182,7 @@ def read_all_rois(all_rois: list, mean_rect_angle: np.float64,
         origin_roi = roi.copy()
         gray_roi = roi.copy()
         thresh_roi, _, gray_roi = clean_image(gray_roi)
-        roi_preds = get_preds([origin_roi, gray_roi])
+        roi_preds = get_preds([origin_roi, thresh_roi, gray_roi])
         extract_all_informations_from_rois_preds(data, roi_preds, roi_ratio)
     return data
 
@@ -188,7 +191,7 @@ def extract_information_from_cnh(image: np.array, resize_w: int = 800) -> dict:
     resize_proc = imutils.resize(image, width=resize_w)
     resize_orig = imutils.resize(image, width=resize_w)
 
-    thresh, add, subtract = clean_image(resize_proc)
+    thresh, _, subtract = clean_image(resize_proc)
 
     rects = extract_rois(thresh)
     rois, mean_angle, std_angle = crop_all_rois(resize_orig, rects)

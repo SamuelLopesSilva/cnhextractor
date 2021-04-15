@@ -8,7 +8,7 @@ from time import time
 import numpy as np
 from PIL import Image
 
-from src.process import extract_information_from_cnh, show
+from src.process import extract_information_from_cnh
 
 
 def tot_time(start_time, end_time):
