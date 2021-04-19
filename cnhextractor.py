@@ -44,7 +44,7 @@ def get_input_args():
 
 
 def run(image_path: Path) -> dict:
-    print(f'Extracting information from {image_path}\n')
+    print(f'\nExtracting information from {image_path}\n')
     image = np.array(Image.open(image_path))
     data = extract_information_from_cnh(image)
     return data
