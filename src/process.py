@@ -36,7 +36,7 @@ def apply_morphological_operations(image: np.array, ks: tuple = (3, 3)) -> tuple
     return kernel, top_hat, black_hat
 
 
-def get_gray_image(image: np.array) -> np.array:
+def get_gray(image: np.array) -> np.array:
     return cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
 
 
@@ -55,7 +55,7 @@ def get_thresh(subtract: np.array, offset: int = 35) -> np.array:
 
 
 def clean_image(image: np.array) -> tuple:
-    gray_image = get_gray_image(image)
+    gray_image = get_gray(image)
     kernel, top_hat, black_hat = apply_morphological_operations(
         gray_image)
     add, subtract = add_and_subtract(gray_image, top_hat, black_hat)
